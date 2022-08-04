@@ -12,7 +12,7 @@ class BookListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('도서 리스트 앱'),
+        title: const Text('도서 리스트 앱'),
       ),
       body: StreamBuilder<QuerySnapshot>(
           stream: viewModel.booksStream,
@@ -29,9 +29,20 @@ class BookListScreen extends StatelessWidget {
               children: snapshot.data!.docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data =
                     document.data()! as Map<String, dynamic>;
-                return ListTile(
-                  title: Text(data['title']),
-                  subtitle: Text(data['author']),
+                return Dismissible(
+                  key: ValueKey(document.id),
+                  onDismissed: (DismissDirection direction) {
+                    viewModel.deleteBook(document.id);
+                  },
+                  background: Container(
+                    alignment: Alignment.centerLeft,
+                    color: Colors.red,
+                    child: const Icon(Icons.delete, color: Colors.white),
+                  ),
+                  child: ListTile(
+                    title: Text(data['title']),
+                    subtitle: Text(data['author']),
+                  ),
                 );
               }).toList(),
             );
