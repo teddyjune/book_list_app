@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:untitled/add_book/add_book_view_model.dart';
 
 class AddBookScreen extends StatefulWidget {
@@ -13,6 +16,8 @@ class _AddBookScreenState extends State<AddBookScreen> {
   final _authorTextController = TextEditingController();
 
   final viewModel = AddBookViewModel();
+  final ImagePicker _picker = ImagePicker();
+  Uint8List? _bytes;
 
   @override
   void dispose() {
@@ -29,6 +34,23 @@ class _AddBookScreenState extends State<AddBookScreen> {
       ),
       body: Column(
         children: [
+          GestureDetector(
+            onTap: () async {
+              XFile? image =
+                  await _picker.pickImage(source: ImageSource.gallery);
+              if (image != null) {
+                _bytes = await image.readAsBytes();
+                setState(() {});
+              }
+            },
+            child: _bytes == null
+                ? Container(
+                    width: 200,
+                    height: 200,
+                    color: Colors.grey,
+                  )
+                : Image.memory(_bytes!, width: 200, height: 200),
+          ),
           const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -57,7 +79,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
         onPressed: () {
           viewModel.addBook(
             title: _titleTextController.text,
-            author: _authorTextController.text,
+            author: _authorTextController.text, bytes: _bytes,
           );
           Navigator.pop(context);
         },
