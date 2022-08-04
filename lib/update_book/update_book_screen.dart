@@ -69,18 +69,19 @@ class _UpdateBookScreenState extends State<UpdateBookScreen> {
           const SizedBox(height: 20),
           ElevatedButton(
               onPressed: () {
-                bool isValid = _titleTextController.text.isNotEmpty &&
-                    _authorTextController.text.isNotEmpty;
-                if (isValid) {
+                try {
+                  // 에러가 날 것 같은 코드
                   viewModel.updateBook(
                     id: widget.document.id,
                     title: _titleTextController.text,
                     author: _authorTextController.text,
                   );
+
                   Navigator.pop(context);
-                } else {
-                  const snackBar = SnackBar(
-                    content: Text('제목과 저자를 입력해 주세요'),
+                } catch (e) {
+                  // 에러가 났을 때
+                  final snackBar = SnackBar(
+                    content: Text(e.toString()),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
