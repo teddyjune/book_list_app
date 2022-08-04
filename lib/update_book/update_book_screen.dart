@@ -34,33 +34,58 @@ class _UpdateBookScreenState extends State<UpdateBookScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('도서 추가'),
+        title: const Text('도서 수정'),
       ),
       body: Column(
         children: [
-          TextField(
-            controller: _titleTextController,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: '제목',
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              onChanged: (_) {
+                setState(() {});
+              },
+              controller: _titleTextController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: '제목',
+              ),
             ),
           ),
-          TextField(
-            controller: _authorTextController,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: '저자',
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              onChanged: (_) {
+                setState(() {});
+              },
+              controller: _authorTextController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: '저자',
+              ),
             ),
           ),
-          ElevatedButton(onPressed: () {
-            viewModel.updateBook(
-              id: widget.document.id,
-              title: _titleTextController.text,
-              author: _authorTextController.text,
-            );
-            Navigator.pop(context);
-          },
-              child: Text('수정 버튼')),
+          const SizedBox(height: 20),
+          ElevatedButton(
+              onPressed: () {
+                bool isValid = _titleTextController.text.isNotEmpty &&
+                    _authorTextController.text.isNotEmpty;
+                if (isValid) {
+                  viewModel.updateBook(
+                    id: widget.document.id,
+                    title: _titleTextController.text,
+                    author: _authorTextController.text,
+                  );
+                  Navigator.pop(context);
+                } else {
+                  const snackBar = SnackBar(
+                    content: Text('제목과 저자를 입력해 주세요'),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
+              },
+              child: const Text('수정 버튼')),
         ],
       ),
     );

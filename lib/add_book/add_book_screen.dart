@@ -25,22 +25,30 @@ class _AddBookScreenState extends State<AddBookScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('도서 추가'),
+        title: const Text('도서 추가'),
       ),
       body: Column(
         children: [
-          TextField(
-            controller: _titleTextController,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: '제목',
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: _titleTextController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: '제목',
+              ),
             ),
           ),
-          TextField(
-            controller: _authorTextController,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: '저자',
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: _authorTextController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: '저자',
+              ),
             ),
           ),
         ],

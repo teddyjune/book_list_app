@@ -4,12 +4,16 @@ class AddBookViewModel {
   final _db = FirebaseFirestore.instance;
 
   Future addBook({
-  required String title,
+    required String title,
     required String author,
-}) async {
+  }) async {
     await _db.collection('books').add({
       "title": title,
       "author": author,
     });
+  }
+
+  bool isValid(String title, String author) {
+    return title.isEmpty || author.isEmpty;
   }
 }
