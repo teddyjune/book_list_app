@@ -32,48 +32,50 @@ class _AddBookScreenState extends State<AddBookScreen> {
       appBar: AppBar(
         title: const Text('도서 추가'),
       ),
-      body: Column(
-        children: [
-          GestureDetector(
-            onTap: () async {
-              XFile? image =
-                  await _picker.pickImage(source: ImageSource.gallery);
-              if (image != null) {
-                _bytes = await image.readAsBytes();
-                setState(() {});
-              }
-            },
-            child: _bytes == null
-                ? Container(
-                    width: 200,
-                    height: 200,
-                    color: Colors.grey,
-                  )
-                : Image.memory(_bytes!, width: 200, height: 200),
-          ),
-          const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: _titleTextController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: '제목',
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            GestureDetector(
+              onTap: () async {
+                XFile? image =
+                    await _picker.pickImage(source: ImageSource.gallery);
+                if (image != null) {
+                  _bytes = await image.readAsBytes();
+                  setState(() {});
+                }
+              },
+              child: _bytes == null
+                  ? Container(
+                      width: 200,
+                      height: 200,
+                      color: Colors.grey,
+                    )
+                  : Image.memory(_bytes!, width: 200, height: 200),
+            ),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: _titleTextController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: '제목',
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: _authorTextController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: '저자',
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: _authorTextController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: '저자',
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
