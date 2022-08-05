@@ -29,7 +29,7 @@ class BookListScreen extends StatelessWidget {
             return ListView(
               children: snapshot.data!.docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data =
-                    document.data()! as Map<String, dynamic>;
+                    document.data() as Map<String, dynamic>;
                 return Dismissible(
                   key: ValueKey(document.id),
                   onDismissed: (DismissDirection direction) {
@@ -50,7 +50,11 @@ class BookListScreen extends StatelessWidget {
                     },
                     title: Text(data['title']),
                     subtitle: Text(data['author']),
-                    leading: Image.network(data['imageUrl'], width: 100, height: 100,),
+                    leading: Image.network(
+                      data['imageUrl'],
+                      width: 100,
+                      height: 100,
+                    ),
                   ),
                 );
               }).toList(),

@@ -79,7 +79,8 @@ class _AddBookScreenState extends State<AddBookScreen> {
         onPressed: () {
           viewModel.addBook(
             title: _titleTextController.text,
-            author: _authorTextController.text, bytes: _bytes,
+            author: _authorTextController.text,
+            bytes: _bytes,
           );
           Navigator.pop(context);
         },
