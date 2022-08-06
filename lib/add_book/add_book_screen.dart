@@ -46,12 +46,12 @@ class _AddBookScreenState extends State<AddBookScreen> {
                       setState(() {});
                     }
                   },
-                  child: _bytes == null
+                  child:  _bytes == null
                       ? Container(
-                          width: 200,
-                          height: 200,
-                          color: Colors.grey,
-                        )
+                    width: 200,
+                    height: 200,
+                    color: Colors.grey,
+                  )
                       : Image.memory(_bytes!, width: 200, height: 200),
                 ),
                 const SizedBox(height: 20),

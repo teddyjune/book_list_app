@@ -1,5 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:untitled/update_book/update_book_view_model.dart';
 
 class UpdateBookScreen extends StatefulWidget {
@@ -15,6 +18,8 @@ class _UpdateBookScreenState extends State<UpdateBookScreen> {
   final _titleTextController = TextEditingController();
   final _authorTextController = TextEditingController();
   final viewModel = UpdateBookViewModel();
+  final ImagePicker _picker = ImagePicker();
+  Uint8List? _bytes;
 
   @override
   void initState() {
@@ -38,6 +43,20 @@ class _UpdateBookScreenState extends State<UpdateBookScreen> {
       ),
       body: Column(
         children: [
+          GestureDetector(
+            onTap: () async {
+              XFile? image =
+                  await _picker.pickImage(source: ImageSource.gallery);
+              if (image != null) {
+                _bytes = await image.readAsBytes();
+                setState(() {});
+              }
+            },
+            child: _bytes == null
+                ? Image.network(downloadUrl.toString(),
+                width: 200, height: 200)
+                : Image.memory(_bytes!, width: 200, height: 200),
+          ),
           const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -75,6 +94,7 @@ class _UpdateBookScreenState extends State<UpdateBookScreen> {
                     id: widget.document.id,
                     title: _titleTextController.text,
                     author: _authorTextController.text,
+                    bytes: _bytes,
                   );
 
                   Navigator.pop(context);
