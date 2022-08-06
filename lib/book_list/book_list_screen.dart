@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/add_book/add_book_screen.dart';
 import 'package:untitled/book_list/book_list_view_model.dart';
+import 'package:untitled/model/book.dart';
 import 'package:untitled/update_book/update_book_screen.dart';
 
 class BookListScreen extends StatelessWidget {
@@ -23,7 +24,7 @@ class BookListScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: StreamBuilder<QuerySnapshot>(
+      body: StreamBuilder<QuerySnapshot<Book>>(
           stream: viewModel.booksStream,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
@@ -36,8 +37,7 @@ class BookListScreen extends StatelessWidget {
 
             return ListView(
               children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                Map<String, dynamic> data =
-                    document.data() as Map<String, dynamic>;
+                Book book = document.data() as Book;
                 return Dismissible(
                   key: ValueKey(document.id),
                   onDismissed: (DismissDirection direction) {
@@ -56,10 +56,10 @@ class BookListScreen extends StatelessWidget {
                             builder: (context) => UpdateBookScreen(document)),
                       );
                     },
-                    title: Text(data['title']),
-                    subtitle: Text(data['author']),
+                    title: Text(book.title),
+                    subtitle: Text(book.author),
                     leading: Image.network(
-                      data['imageUrl'],
+                      book.imageUrl,
                       width: 100,
                       height: 100,
                     ),
