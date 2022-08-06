@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:untitled/book_list/book_list_screen.dart';
 
-
 class RootScreen extends StatelessWidget {
   const RootScreen({Key? key}) : super(key: key);
 
