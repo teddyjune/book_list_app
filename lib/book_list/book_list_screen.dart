@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfire_ui/auth.dart';
 import 'package:untitled/add_book/add_book_screen.dart';
 import 'package:untitled/book_list/book_list_view_model.dart';
 import 'package:untitled/model/book.dart';
@@ -22,6 +23,25 @@ class BookListScreen extends StatelessWidget {
             },
             icon: const Icon(Icons.logout),
           ),
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileScreen(
+                      providerConfigs: [
+                        GoogleProviderConfiguration(
+                          clientId:
+                              '245549996846-va5g89d9u0u9aptuftb6it7d18l36tur.apps.googleusercontent.com',
+                        ),
+                        EmailProviderConfiguration(),
+                      ],
+                      avatarSize: 24,
+                    ),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.person)),
         ],
       ),
       body: StreamBuilder<QuerySnapshot<Book>>(
