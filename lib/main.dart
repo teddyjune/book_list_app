@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/login/login_screen.dart';
 import 'book_list/book_list_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: BookListScreen(),
+      home: const LoginScreen(),
     );
   }
 }

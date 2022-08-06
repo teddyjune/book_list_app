@@ -6,6 +6,15 @@ import 'package:firebase_storage/firebase_storage.dart';
 class AddBookViewModel {
   final _db = FirebaseFirestore.instance;
   final _storage = FirebaseStorage.instance;
+  bool isLoading = false;
+
+  void startLoading() {
+    isLoading = true;
+  }
+
+  void endLoading() {
+    isLoading = false;
+  }
 
   Future<String> uploadImage(String title, Uint8List bytes) async {
     final storageRef = _storage.ref('book_cover/$title.jpg');
