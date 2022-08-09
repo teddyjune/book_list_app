@@ -14,10 +14,6 @@ class RootScreen extends StatelessWidget {
         User? user = snapshot.data;
         if (user == null) {
           return const SignInScreen(providerConfigs: [
-            GoogleProviderConfiguration(
-              clientId:
-                  '245549996846-va5g89d9u0u9aptuftb6it7d18l36tur.apps.googleusercontent.com',
-            ),
             EmailProviderConfiguration(),
           ]);
         }
