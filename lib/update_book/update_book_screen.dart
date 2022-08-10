@@ -47,7 +47,7 @@ class _UpdateBookScreenState extends State<UpdateBookScreen> {
             GestureDetector(
               onTap: () async {
                 XFile? image =
-                    await _picker.pickImage(source: ImageSource.gallery);
+                await _picker.pickImage(source: ImageSource.gallery);
                 if (image != null) {
                   _bytes = await image.readAsBytes();
                   setState(() {});
@@ -55,7 +55,7 @@ class _UpdateBookScreenState extends State<UpdateBookScreen> {
               },
               child: _bytes == null
                   ? Image.network('${widget.document['imageUrl']}',
-                      width: 200, height: 200)
+                  width: 200, height: 200)
                   : Image.memory(_bytes!, width: 200, height: 200),
             ),
             const SizedBox(height: 20),

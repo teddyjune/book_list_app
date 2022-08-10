@@ -50,10 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            TextButton(onPressed: () {
-              viewModel.createUserWithEmailAndPassword(
-                  _emailTextController.text, _passwordTextController.text);
-            }, child: const Text('신규 등록')),
+            TextButton(onPressed: () {}, child: const Text('신규 등록')),
             ElevatedButton(
                 onPressed: () {
                   viewModel.signInWithGoogle();
