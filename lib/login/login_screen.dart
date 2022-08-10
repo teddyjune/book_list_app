@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/login/login_view_model.dart';
 
@@ -49,10 +50,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            TextButton(onPressed: () {}, child: const Text('신규 등록')),
-            ElevatedButton(onPressed: () {
-              viewModel.signInWithGoogle();
-            }, child: const Text('Google 로그인')),
+            TextButton(onPressed: () {
+              viewModel.createUserWithEmailAndPassword(
+                  _emailTextController.text, _passwordTextController.text);
+            }, child: const Text('신규 등록')),
+            ElevatedButton(
+                onPressed: () {
+                  viewModel.signInWithGoogle();
+                },
+                child: const Text('Google 로그인')),
           ],
         ));
   }
