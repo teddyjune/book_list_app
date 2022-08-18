@@ -54,9 +54,9 @@ class _UpdateBookScreenState extends State<UpdateBookScreen> {
                 }
               },
               child: _bytes == null
-                  ? Image.network('${widget.document['imageUrl']}',
-                  width: 200, height: 200)
-                  : Image.memory(_bytes!, width: 200, height: 200),
+                  ? Image.network(widget.document['imageUrl'],
+                  fit: BoxFit.cover)
+                  : Image.memory(_bytes!, fit: BoxFit.cover),
             ),
             const SizedBox(height: 20),
             Padding(
@@ -107,7 +107,7 @@ class _UpdateBookScreenState extends State<UpdateBookScreen> {
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }
                 },
-                child: const Text('수정 버튼')),
+                child: const Text('수정')),
           ],
         ),
       ),

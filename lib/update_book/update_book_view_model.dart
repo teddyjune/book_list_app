@@ -28,19 +28,22 @@ class UpdateBookViewModel {
     final doc = _db.doc();
     String downloadUrl = await uploadImage(doc.id, bytes!);
 
-    bool isValid = title.isNotEmpty && author.isNotEmpty && bytes.isNotEmpty;
+    bool isValid = title.isNotEmpty && author.isNotEmpty && bytes == null;
     if (isValid) {
-      _db
-          .doc(id)
-          .set(Book(title: title, author: author, imageUrl: downloadUrl));
-    } else if (title.isEmpty && author.isEmpty && bytes.isEmpty) {
-      throw '모두 입력해주세요';
+      _db.doc(id).update({"title": title, "author": author});
+    } else if (title.isNotEmpty && author.isNotEmpty && bytes != null) {
+      String downloadUrl = await uploadImage(id, bytes);
+      await _db.doc(id).update({
+        "title": title,
+        "author": author,
+        "imageUrl": downloadUrl,
+      });
+    } else if (author.isEmpty && title.isEmpty) {
+      return Future.error('제목과 저자를 입력해 주세요');
     } else if (title.isEmpty) {
-      throw '제목을 입력해주세요';
+      return Future.error('제목을 입력해 주세요');
     } else if (author.isEmpty) {
-      throw '저자를 입력해주세요';
-    } else if (bytes.isEmpty) {
-      throw '책표지를 넣어주세요';
+      return Future.error('저자를 입력해 주세요');
     }
   }
 }
